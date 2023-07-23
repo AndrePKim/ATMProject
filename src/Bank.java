@@ -62,6 +62,9 @@ public class Bank {
         //return unique uuid
         return uuid;
     }
+    public void addAccount(Account acc) {
+        this.accounts.add(acc);
+    }
     public User addUser(String firstName, String lastName, String pin) {
         //create new user object and add to bank list
         User newUser = new User(firstName,lastName,pin,this);
@@ -81,5 +84,8 @@ public class Bank {
         }
         //if user not found or incorrect pin
         return null;
+    }
+    public String getName() {
+        return this.name;
     }
 }

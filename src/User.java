@@ -27,7 +27,7 @@ public class User {
         //create empty list of accounts
         this.accounts = new ArrayList<Account>();
         //print log message
-        System.out.printf("New user %s, %s with ID %s created.\n", lastName, firstName, uuid);
+        System.out.println("Success");
 
     }
     public void addAccount(Account acc) {
@@ -46,5 +46,30 @@ public class User {
             System.exit(1);
         }
         return false;
+    }
+    public String getFirstName() {
+        return this.firstName;
+    }
+    public int numAccounts() {
+        return this.accounts.size();
+    }
+    public void printAccountsSummary() {
+        System.out.println(this.firstName + "'s accounts summary");
+        for (int i=0; i<this.accounts.size(); i++) {
+            System.out.println(i+1 + ")" + this.accounts.get(i).getSummaryLine());
+        }
+        System.out.println();
+    }
+    public void printAcctTransHistory(int acc) {
+        this.accounts.get(acc).printTransHistory();
+    }
+    public double getAcctBalance(int acc) {
+        return this.accounts.get(acc).getBalance();
+    }
+    public String getAcctUUID(int acc) {
+        return this.accounts.get(acc).getUUID();
+    }
+    public void addAcctTransaction(int acc,double amount,String note) {
+        this.accounts.get(acc).addTransaction(amount,note);
     }
 }
