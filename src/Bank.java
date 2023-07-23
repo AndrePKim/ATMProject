@@ -8,8 +8,8 @@ public class Bank {
 
     public Bank(String name) {
         this.name = name;
-        this.users = new ArrayList<User>();
-        this.accounts = new ArrayList<Account>();
+        this.users = new ArrayList<>();
+        this.accounts = new ArrayList<>();
     }
 
     public String getNewUserUUID() {
@@ -17,7 +17,7 @@ public class Bank {
         String uuid;
         Random random = new Random();
         int length = 6;
-        boolean nonUnique;
+        boolean notUnique;
         //continue generating uuid until unique
         do {
             //generate uuid
@@ -26,14 +26,14 @@ public class Bank {
                 uuid += ((Integer)random.nextInt(10)).toString();
             }
             //check if unique
-            nonUnique = false;
+            notUnique = false;
             for (User u: this.users) {
                 if (uuid.equals(u.getUUID())) {
-                    nonUnique = true;
+                    notUnique = true;
                     break;
                 }
             }
-        } while (nonUnique = true);
+        } while (notUnique);
         //return unique uuid
         return uuid;
     }
@@ -41,7 +41,7 @@ public class Bank {
         //init
         String uuid;
         Random random = new Random();
-        int length = 6;
+        int length = 10;
         boolean nonUnique;
         //continue generating uuid until unique
         do {
@@ -58,7 +58,7 @@ public class Bank {
                     break;
                 }
             }
-        } while (nonUnique = true);
+        } while (nonUnique);
         //return unique uuid
         return uuid;
     }

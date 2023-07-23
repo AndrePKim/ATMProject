@@ -4,12 +4,12 @@ public class ATM {
     public static void main(String[] args) {
         //init
         Scanner scan = new Scanner(System.in);
-        Bank bank = new Bank("Bank");
+        Bank bank = new Bank("the Bank");
         //add user, also create savings account
-        User aUser = bank.addUser("John","Doe","1234");
+        User user = bank.addUser("John","Doe","1234");
         //add checking account for user
-        Account nAccount = new Account("Checking",aUser,bank);
-        aUser.addAccount(nAccount);
+        Account nAccount = new Account("Checking",user,bank);
+        user.addAccount(nAccount);
         bank.addAccount(nAccount);
         User curUser;
         while (true) {
@@ -24,10 +24,10 @@ public class ATM {
         User authUser;
         //prompt the user for user ID/pin combo until correct
         do {
-            System.out.println("Welcome to " + bank.getName());
+            System.out.println("\nWelcome to " + bank.getName());
             System.out.print("Enter the ID: ");
             userID = scan.nextLine();
-            System.out.println("Enter pin: ");
+            System.out.print("Enter pin: ");
             pin = scan.nextLine();
             authUser = bank.userLogin(userID,pin);
             if (authUser==null) {
@@ -48,9 +48,9 @@ public class ATM {
             System.out.println("    2) Withdrawal");
             System.out.println("    3) Deposit");
             System.out.println("    4) Transfer");
-            System.out.println("    5) Quit\n");
-            System.out.println("Enter choice: ");
-            choice = Integer.parseInt(scan.nextLine());
+            System.out.println("    5) Quit");
+            System.out.print("Enter choice: ");
+            choice = scan.nextInt();
             if (choice<1 || choice>5) {
                 System.out.println("Invalid choice. Please choose 1-5");
             }
@@ -71,8 +71,8 @@ public class ATM {
         int account;
         //get account history of chosen account
         do {
-            System.out.println("Enter the number (1-" + user.numAccounts() + ") of the account\n" +
-                    "whose transactions you want to see");
+            System.out.println("\nEnter the number (1-" + user.numAccounts() + ") of the account\n" +
+                    "whose transactions you want to see:");
             account = scan.nextInt()-1;
             if (account<0 || account>=user.numAccounts()) {
                 System.out.println("Invalid account. Please try again.");
@@ -89,7 +89,7 @@ public class ATM {
         String note;
         //get account to withdraw from
         do {
-            System.out.println("Enter the number (1-" + user.numAccounts() + ") of the account\n" +
+            System.out.println("\nEnter the number (1-" + user.numAccounts() + ") of the account\n" +
                     "to withdraw from: ");
             fromAcct = scan.nextInt()-1;
             if (fromAcct<0 || fromAcct>=user.numAccounts()) {
@@ -111,7 +111,7 @@ public class ATM {
         //gobble up rest of previous input
         scan.nextLine();
         //get the note
-        System.out.println("Enter a note: ");
+        System.out.print("Enter a note: ");
         note = scan.nextLine();
         //do the withdrawal
         user.addAcctTransaction(fromAcct,-1*amount,note);
@@ -123,7 +123,7 @@ public class ATM {
         String note;
         //get account to deposit to
         do {
-            System.out.println("Enter the number (1-" + user.numAccounts() + ") of the account\n" +
+            System.out.println("\nEnter the number (1-" + user.numAccounts() + ") of the account\n" +
                     "to deposit to: ");
             toAcct = scan.nextInt()-1;
             if (toAcct<0 || toAcct>=user.numAccounts()) {
@@ -141,7 +141,7 @@ public class ATM {
         //gobble up rest of previous input
         scan.nextLine();
         //get the note
-        System.out.println("Enter a note: ");
+        System.out.print("Enter a note: ");
         note = scan.nextLine();
         //do the deposit
         user.addAcctTransaction(toAcct,amount,note);
@@ -154,7 +154,7 @@ public class ATM {
         double acctBal;
         //get account to transfer from
         do {
-            System.out.println("Enter the number (1-" + user.numAccounts() + ") of the account\n" +
+            System.out.println("\nEnter the number (1-" + user.numAccounts() + ") of the account\n" +
                     "to transfer from: ");
             fromAcct = scan.nextInt()-1;
             if (fromAcct<0 || fromAcct>=user.numAccounts()) {

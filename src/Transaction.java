@@ -26,9 +26,9 @@ public class Transaction {
     }
     public String getSummaryLine() {
         if (this.amount>=0) {
-            return String.format("%s : $%0.2f : %s", this.timestamp.toString(), this.amount, this.note);
+            return String.format("%s : $%.02f : %s", this.timestamp.toString(), this.amount, this.note);
         } else {
-            return String.format("%s : $(%0.2f) : %s", this.timestamp.toString(), this.amount, this.note);
+            return String.format("%s : $(%.02f) : %s", this.timestamp.toString(), this.amount, this.note);
         }
     }
 }

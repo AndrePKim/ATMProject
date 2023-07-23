@@ -6,7 +6,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String uuid;
-    private byte pinHash[]; //MD5 hash of user's pin number
+    private byte[] pinHash; //MD5 hash of user's pin
     private ArrayList<Account> accounts;
 
     public User(String firstName, String lastName, String pin, Bank bank) {
@@ -18,16 +18,15 @@ public class User {
             MessageDigest md = MessageDigest.getInstance("MD5");
             this.pinHash = md.digest(pin.getBytes());
         } catch (NoSuchAlgorithmException e) {
-            System.err.println("error, caught NoSuchAlgorithmException");
-            e.printStackTrace();
+            System.out.println("error, caught NoSuchAlgorithmException");
             System.exit(1);
         }
         //get new and unique universal ID for user
         this.uuid = bank.getNewUserUUID();
         //create empty list of accounts
-        this.accounts = new ArrayList<Account>();
+        this.accounts = new ArrayList<>();
         //print log message
-        System.out.println("Success");
+        System.out.printf("New user %s, %s with ID %s created.\n\n",lastName,firstName,this.uuid);
 
     }
     public void addAccount(Account acc) {

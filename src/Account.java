@@ -13,7 +13,7 @@ public class Account {
         //get account universal ID
         this.uuid = bank.getNewAccountUUID();
         //init transactions
-        this.transactions = new ArrayList<Transaction>();
+        this.transactions = new ArrayList<>();
     }
 
     public String getUUID() {
@@ -24,9 +24,9 @@ public class Account {
         double balance = this.getBalance();
         //format summary line based on sign
         if (balance>=0) {
-            return String.format("%s : $%0.2f : %s", this.uuid, balance, this.name);
+            return String.format("%s : $%.02f : %s", this.uuid, balance, this.name);
         } else {
-            return String.format("%s : $(%0.2f) : %s", this.uuid, balance, this.name);
+            return String.format("%s : $(%.02f) : %s", this.uuid, balance, this.name);
         }
     }
     public double getBalance() {
