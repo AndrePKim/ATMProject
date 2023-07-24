@@ -27,11 +27,11 @@ public class ATM {
             System.out.println("\nWelcome to " + bank.getName());
             System.out.print("Enter the ID: ");
             userID = scan.nextLine();
-            System.out.print("Enter pin: ");
+            System.out.print("Enter PIN: ");
             pin = scan.nextLine();
             authUser = bank.userLogin(userID,pin);
             if (authUser==null) {
-                System.out.println("Incorrect user ID/pin combination. Please try again.");
+                System.out.println("Incorrect user ID/PIN combination. Please try again.");
             }
         } while (authUser==null);
         return authUser;
