@@ -21,6 +21,7 @@ public class Transaction {
         this.note = note;
         this.timestamp = new Date();
     }
+
     public double getAmount() {
         return this.amount;
     }

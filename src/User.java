@@ -26,9 +26,9 @@ public class User {
         //create empty list of accounts
         this.accounts = new ArrayList<>();
         //print log message
-        System.out.printf("New user %s, %s with ID %s created.\n\n",lastName,firstName,this.uuid);
-
+        System.out.printf("New user %s, %s with ID %s created.\n",lastName,firstName,this.uuid);
     }
+
     public void addAccount(Account acc) {
         this.accounts.add(acc);
     }
@@ -53,11 +53,10 @@ public class User {
         return this.accounts.size();
     }
     public void printAccountsSummary() {
-        System.out.println(this.firstName + "'s accounts summary");
+        System.out.println("\n" + this.firstName + "'s accounts summary");
         for (int i=0; i<this.accounts.size(); i++) {
             System.out.println(i+1 + ")" + this.accounts.get(i).getSummaryLine());
         }
-        System.out.println();
     }
     public void printAcctTransHistory(int acc) {
         this.accounts.get(acc).printTransHistory();
@@ -70,5 +69,14 @@ public class User {
     }
     public void addAcctTransaction(int acc,double amount,String note) {
         this.accounts.get(acc).addTransaction(amount,note);
+    }
+    public void changePIN(String newPIN) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            this.pinHash = md.digest(newPIN.getBytes());
+        } catch (NoSuchAlgorithmException e) {
+            System.out.println("error, caught NoSuchAlgorithmException");
+            System.exit(1);
+        }
     }
 }

@@ -4,9 +4,9 @@ public class ATM {
     public static void main(String[] args) {
         //init
         Scanner scan = new Scanner(System.in);
-        Bank bank = new Bank("the Bank");
+        Bank bank = new Bank("Banco De Banco");
         //add user, also create savings account
-        User user = bank.addUser("John","Doe","1234");
+        User user = bank.addUser("Andre","Kim","1234");
         //add checking account for user
         Account nAccount = new Account("Checking",user,bank);
         user.addAccount(nAccount);
@@ -48,22 +48,24 @@ public class ATM {
             System.out.println("    2) Withdrawal");
             System.out.println("    3) Deposit");
             System.out.println("    4) Transfer");
-            System.out.println("    5) Quit");
+            System.out.println("    5) Change PIN");
+            System.out.println("    6) Quit");
             System.out.print("Enter choice: ");
             choice = scan.nextInt();
-            if (choice<1 || choice>5) {
-                System.out.println("Invalid choice. Please choose 1-5");
+            if (choice<1 || choice>6) {
+                System.out.println("Invalid choice. Please choose 1-6");
             }
-        } while (choice<1 || choice>5);
+        } while (choice<1 || choice>6);
         //process choice
         switch (choice) {
             case 1 -> ATM.showTransHistory(user, scan);
             case 2 -> ATM.withdrawFunds(user, scan);
             case 3 -> ATM.depositFunds(user, scan);
             case 4 -> ATM.transferFunds(user, scan);
+            case 5 -> ATM.changePIN(user, scan);
         }
         //recurse user menu if cancel
-        if (choice!=5) {
+        if (choice!=6) {
             ATM.printUserMenu(user,scan);
         }
     }
@@ -185,5 +187,41 @@ public class ATM {
         //do the transfer
         user.addAcctTransaction(fromAcct,-1*amount,String.format("Transfer to account %s",user.getAcctUUID(toAcct)));
         user.addAcctTransaction(toAcct,amount,String.format("Transfer from account %s",user.getAcctUUID(fromAcct)));
+    }
+    public static void changePIN(User user, Scanner scan) {
+        //init
+        String currPIN;
+        String newPIN;
+        String checkNewPIN;
+        boolean authPIN;
+        //gobble up rest of previous input
+        scan.nextLine();
+        //reenter pin for checking
+        do {
+            System.out.print("\nEnter your current PIN: ");
+            currPIN = scan.nextLine();
+            authPIN = false;
+            authPIN = user.validatePin(currPIN);
+            if (!authPIN) {
+                System.out.println("Invalid PIN. Please try again.");
+            }
+        } while (!authPIN);
+        //enter new pin
+        do {
+            System.out.print("Enter your new PIN: ");
+            newPIN = scan.nextLine();
+            System.out.print("Reenter your new PIN to confirm: ");
+            checkNewPIN = scan.nextLine();
+            if (newPIN.equals(checkNewPIN)) {
+                //do the changePIN
+                user.changePIN(newPIN);
+            } else if (newPIN.equals(currPIN)) {
+                System.out.println("Entered PIN is the same as previous PIN. Please try again.");
+                authPIN = false;
+            } else {
+                System.out.println("Entered PIN does not match new PIN. Please try again.");
+                authPIN = false;
+            }
+        } while (authPIN==false);
     }
 }
