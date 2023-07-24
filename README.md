@@ -9,6 +9,4 @@ The ATM Project is a simple command-line application that simulates the basic fu
 - Deposit to an account
 - Transfer from one account to another
 ## Added Features
-- Register new user
-- Select from different banks
-- Transfer to another user (same and different bank)
+- PIN change
